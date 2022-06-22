@@ -1,7 +1,7 @@
 import { Route, Switch } from "react-router-dom";
 import { Home } from "../Home";
-import { Page2 } from "../Page2";
 import { Page1Routes } from "./Page1Routes";
+import { Page2Routes } from "./Page2Routes";
 
 export const Router = () => {
   return (
@@ -15,6 +15,8 @@ export const Router = () => {
       </Route>
       <Route
         path="/page1"
+        // renderのアロー関数の引数にはpropsが入る
+        // 中身は下のコンソールで出力しているので確認してみる
         render={({ match: { url } }) => (
           <Switch>
             {/* 
@@ -28,6 +30,9 @@ export const Router = () => {
               Reactの中でLoop処理するときは
               必ずコンポーネントに設定する項目
               必ず一意の値にする
+
+              Page1Routesをmap関数の引数には
+              Route情報を表すオブジェクトが入っていくる
             */}
             {Page1Routes.map((route) => (
               <Route
@@ -41,9 +46,23 @@ export const Router = () => {
           </Switch>
         )}
       />
-      <Route path="/page2">
-        <Page2 />
-      </Route>
+      <Route
+        path="/page2"
+        render={({ match: { url } }) => (
+          <Switch>
+            {console.log(url)}
+            {Page2Routes.map((route) => (
+              <Route
+                key={route.path}
+                exact={route.exact}
+                path={`${url}${route.path}`}
+              >
+                {route.children}
+              </Route>
+            ))}
+          </Switch>
+        )}
+      />
     </Switch>
   );
 };
