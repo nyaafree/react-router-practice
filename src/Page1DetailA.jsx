@@ -1,5 +1,5 @@
 // 画面遷移した際に直前のページから渡されたstateを管理するためのもの
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 export const Page1DetailA = () => {
   const { state } = useLocation();
@@ -13,9 +13,16 @@ export const Page1DetailA = () => {
   // }
   console.log(state);
 
+  // 画面遷移の多くで useHisotory() を使うので覚えておく
+  const history = useHistory();
+
+  const onClickBack = () => history.goBack();
+
   return (
     <div>
       <h1>Page1DetailAです</h1>
+      <br />
+      <button onClick={onClickBack}>戻る</button>
     </div>
   );
 };

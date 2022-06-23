@@ -1,5 +1,6 @@
 import { Route, Switch } from "react-router-dom";
 import { Home } from "../Home";
+import { Page404 } from "../Page404";
 import { Page1Routes } from "./Page1Routes";
 import { Page2Routes } from "./Page2Routes";
 
@@ -63,6 +64,10 @@ export const Router = () => {
           </Switch>
         )}
       />
+      {/* *は全部一致。すなはち上から順番にpathを見て何も一致しなければ下の404に遷移する */}
+      <Route path="*">
+        <Page404 />
+      </Route>
     </Switch>
   );
 };
